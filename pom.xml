@@ -16,6 +16,9 @@
     <modules>
         <module>hystrix-demo</module>
         <module>sentinel-demo</module>
+		<module>common-demo</module>
+		<module>service-title</module>
+		<module>service-count</module>
     </modules>
 
     <profiles>
@@ -43,6 +46,17 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.9</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.lxq</groupId>
+                <artifactId>learn-common-demo</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>1.2.47</version>
@@ -52,6 +66,16 @@
                 <artifactId>lombok</artifactId>
                 <version>1.18.0</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.netflix.hystrix</groupId>
+                <artifactId>hystrix-core</artifactId>
+                <version>1.5.18</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>28.1-jre</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
