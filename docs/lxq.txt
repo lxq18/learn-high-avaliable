@@ -1,0 +1,3 @@
+.withExecutionIsolationThreadInterruptOnFutureCancel(true)
+.withExecutionIsolationThreadInterruptOnTimeout(true)
+

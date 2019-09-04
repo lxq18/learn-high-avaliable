@@ -26,5 +26,4 @@ public class CountServiceImpl implements CountService {
         return Integer.valueOf(HttpClientUtils.doGet(url));
     }
 
-
 }
