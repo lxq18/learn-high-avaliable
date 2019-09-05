@@ -1,21 +1,23 @@
-package com.lxq.learn.high.avaliable.hystrix.service.count;
+package com.lxq.learn.high.avaliable.hystrix.fallback;
 
 import com.lxq.learn.high.avaliable.common.dto.CommonParam;
 import com.lxq.learn.high.avaliable.hystrix.utils.HttpClientUtils;
 import com.netflix.hystrix.*;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.lxq.learn.high.avaliable.hystrix.constant.Constants.*;
+
 /**
  * @author: bjlixiaoqiang
  * @create: 2019-09-04 20:50
  **/
 @Slf4j
-public class CountServiceCommand extends HystrixCommand<Integer> {
+public class FallbackDemoCommand extends HystrixCommand<Integer> {
     private String id;
     private String serviceUrl;
     private CommonParam commonParam;
 
-    public CountServiceCommand(String id, String serviceUrl, CommonParam commonParam) {
+    public FallbackDemoCommand(String id, String serviceUrl, CommonParam commonParam) {
         super(setter());
         this.id = id;
         this.serviceUrl = serviceUrl;
@@ -40,8 +42,8 @@ public class CountServiceCommand extends HystrixCommand<Integer> {
                 .withCoreSize(2)
                 .withMaximumSize(2)
                 .withKeepAliveTimeMinutes(1)
-                .withMaxQueueSize(2)
-                .withQueueSizeRejectionThreshold(5);
+                .withMaxQueueSize(-1)
+                .withQueueSizeRejectionThreshold(3);
         //命令属性配置
         HystrixCommandProperties.Setter commandProperties = HystrixCommandProperties.Setter()
                 .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD)
@@ -51,7 +53,7 @@ public class CountServiceCommand extends HystrixCommand<Integer> {
                 .withExecutionIsolationThreadInterruptOnFutureCancel(true)
                 .withExecutionIsolationThreadInterruptOnTimeout(true)
                 .withExecutionTimeoutEnabled(true)
-                .withExecutionTimeoutInMilliseconds(1000)
+                .withExecutionTimeoutInMilliseconds(3000)
                 ;
 
         return HystrixCommand.Setter
@@ -69,15 +71,26 @@ public class CountServiceCommand extends HystrixCommand<Integer> {
         if (commonParam.getDelayMilli() != null) {
             url += "&delayMilli=" + commonParam.getDelayMilli();
         }
+        if (commonParam.isOccurException()) {
+            throw new IllegalArgumentException("customException");
+        }
+        if (Thread.currentThread().isInterrupted()) {
+            return COUNT_RESULT_INTERRUPTED;
+        }
         Integer result = Integer.valueOf(HttpClientUtils.doGet(url));
-        log.info("execute success, id = " + id + ", result = " + result);
         return result;
     }
 
     @Override
     protected Integer getFallback() {
-        log.error("execute fallback, id = " + id);
+        log.error("execute fallback for id : " + id);
         //返回托底数据或默认值，注意此处尽量不要调用延迟高的服务
-        return -1;
+        if (this.isResponseTimedOut()) {
+            return COUNT_RESULT_TIMEOUT;
+        }
+        if (this.isFailedExecution()) {
+            return COUNT_RESULT_EXCEPTION;
+        }
+        return COUNT_RESULT_DEFAULT;
     }
 }
