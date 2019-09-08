@@ -1,0 +1,2 @@
+hystrix dashboard:          http://localhost:8000/hystrix
+include hystrix service:    http://localhost:8080/hystrix.stream
