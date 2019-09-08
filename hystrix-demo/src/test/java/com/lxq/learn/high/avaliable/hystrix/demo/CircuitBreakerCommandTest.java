@@ -2,7 +2,7 @@ package com.lxq.learn.high.avaliable.hystrix.demo;
 
 import com.lxq.learn.high.avaliable.common.dto.CommonParam;
 import com.lxq.learn.high.avaliable.hystrix.HystrixApplication;
-import com.lxq.learn.high.avaliable.hystrix.ProfileConstants;
+import com.lxq.learn.high.avaliable.hystrix.constant.ProfileConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

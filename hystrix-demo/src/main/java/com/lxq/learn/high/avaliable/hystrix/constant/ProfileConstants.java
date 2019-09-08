@@ -1,4 +1,4 @@
-package com.lxq.learn.high.avaliable.hystrix;
+package com.lxq.learn.high.avaliable.hystrix.constant;
 
 /**
  * @author lxq
