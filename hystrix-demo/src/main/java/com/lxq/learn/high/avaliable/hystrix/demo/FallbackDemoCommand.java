@@ -48,7 +48,7 @@ public class FallbackDemoCommand extends HystrixCommand<Integer> {
         3、部署; 如果一切顺利，继续。
         4、在生产中跑24小时。
         5、依靠警报和监控来捕捉问题（如果有的话）。
-        6、24小时后，使用延迟百分位数和流量（线程数：qps*延迟ms + 冗余数， 30qps*0.2s + 4 = 10）来计算有意义的最低配置值。
+        6、24小时后，使用延迟百分位数和流量（线程数：99%请求的qps*延迟ms + 冗余数， 30qps*0.2s + 4 = 10）来计算有意义的最低配置值。
         7、在生产中即时更改值并使用实时仪表板监控它们，直到您确信为止。
         */
         HystrixThreadPoolProperties.Setter threadPoolProperties = HystrixThreadPoolProperties.Setter()
