@@ -27,7 +27,7 @@ public class CircuitBreakerCommandTest {
     /**
      * 先1个超时
      * 再1个异常
-     * 然后正常请求6个
+     * 然后正常请求7个
      * 然后第10个还正常
      */
     @Test
@@ -100,7 +100,7 @@ public class CircuitBreakerCommandTest {
      * 先2个超时
      * 再1个异常
      * 然后正常请求7个
-     * 然后第10个异常了
+     * 然后第11个异常了
      */
     @Test
     public void breaker() throws InterruptedException {
