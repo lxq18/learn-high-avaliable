@@ -24,11 +24,7 @@ public class UserCommand extends HystrixCommand<String> {
                 .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter()
                         /******ThreadPool，线程池配置******/
                         //设置核心线程池大小，默认10
-                        .withCoreSize(5)
-                        //设置线程池最大值
-                        .withMaxQueueSize(5)
-                        //设置线程多久没有服务后，需要释放（maximumSize-coreSize ）个线程，默认值1
-                        .withKeepAliveTimeMinutes(1))
+                        .withCoreSize(5))
 
         );
         this.userId = userId;
