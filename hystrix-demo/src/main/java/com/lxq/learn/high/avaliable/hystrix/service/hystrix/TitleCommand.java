@@ -6,19 +6,17 @@ import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import lombok.extern.slf4j.Slf4j;
 
-import static com.lxq.learn.high.avaliable.hystrix.constant.Constants.COUNT_RESULT_INTERRUPTED;
-
 /**
  * @author lxq
  * @create 2019/9/8 21:11
  */
 @Slf4j
-public class CountCommand extends HystrixCommand<Integer> {
+public class TitleCommand extends HystrixCommand<String> {
     private String id;
     private String serviceUrl;
     private CommonParam commonParam;
 
-    public CountCommand(String id, String serviceUrl, CommonParam commonParam) {
+    public TitleCommand(String id, String serviceUrl, CommonParam commonParam) {
         super(setter());
         this.id = id;
         this.serviceUrl = serviceUrl;
@@ -30,13 +28,13 @@ public class CountCommand extends HystrixCommand<Integer> {
         //服务分组
         HystrixCommandGroupKey groupKey = HystrixCommandGroupKey.Factory.asKey("doc");
 
-        return HystrixCommand.Setter
+        return Setter
                 .withGroupKey(groupKey)
                 ;
     }
 
     @Override
-    protected Integer run() throws Exception {
+    protected String run() throws Exception {
         String url = serviceUrl + "?id=" + id;
         if (commonParam != null) {
             if (commonParam.getDelayMilli() != null) {
@@ -47,9 +45,9 @@ public class CountCommand extends HystrixCommand<Integer> {
             }
         }
         if (Thread.currentThread().isInterrupted()) {
-            return COUNT_RESULT_INTERRUPTED;
+            return String.valueOf("isInterrupted");
         }
-        Integer result = Integer.valueOf(HttpClientUtils.doGet(url));
+        String result = HttpClientUtils.doGet(url);
         return result;
     }
 }

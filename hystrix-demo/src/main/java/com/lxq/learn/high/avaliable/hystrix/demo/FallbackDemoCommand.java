@@ -34,7 +34,7 @@ public class FallbackDemoCommand extends HystrixCommand<Integer> {
     protected static Setter setter() {
         log.info("create setter");
         //服务分组
-        HystrixCommandGroupKey groupKey = HystrixCommandGroupKey.Factory.asKey("doc");
+        HystrixCommandGroupKey groupKey = HystrixCommandGroupKey.Factory.asKey("demo-doc");
         //服务标识
         HystrixCommandKey commandKey = HystrixCommandKey.Factory.asKey("getCount");
         //线程池名称(服务分组+Single、服务分组+Multi、混合模式)

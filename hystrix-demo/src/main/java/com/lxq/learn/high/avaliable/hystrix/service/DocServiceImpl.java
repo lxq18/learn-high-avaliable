@@ -2,10 +2,8 @@ package com.lxq.learn.high.avaliable.hystrix.service;
 
 import com.lxq.learn.high.avaliable.common.dto.CommonParam;
 import com.lxq.learn.high.avaliable.common.dto.Doc;
-import com.lxq.learn.high.avaliable.hystrix.demo.FallbackDemoCommand;
-import com.lxq.learn.high.avaliable.hystrix.service.count.CountService;
-import com.lxq.learn.high.avaliable.hystrix.service.title.TitleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.lxq.learn.high.avaliable.hystrix.service.hystrix.CountCommand;
+import com.lxq.learn.high.avaliable.hystrix.service.hystrix.TitleCommand;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -15,22 +13,21 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DocServiceImpl implements DocService {
-    @Autowired
-    private CountService countService;
-    @Autowired
-    private TitleService titleService;
 
     @Value("${count.url}")
     private String countUrl;
+
+    @Value("${title.url}")
+    private String titleUrl;
 
     @Override
     public Doc getDoc(String id, CommonParam commonParam) {
         Doc doc = new Doc();
         doc.setId(id);
 
-        int count = new FallbackDemoCommand("1", countUrl, commonParam).execute();
-        doc.setCount(count);
-        //doc.setTitle(titleService.getTitle(id, commonParam));
+        int count = new CountCommand(id, countUrl, commonParam).execute();
+        String title = new TitleCommand(id, titleUrl, commonParam).execute();
+        doc.setCount(count).setTitle(title);
         return doc;
     }
 }

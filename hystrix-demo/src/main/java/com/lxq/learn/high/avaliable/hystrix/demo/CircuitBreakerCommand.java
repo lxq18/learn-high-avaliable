@@ -34,7 +34,7 @@ public class CircuitBreakerCommand extends HystrixCommand<Integer> {
     protected static Setter setter() {
         log.debug("create setter");
         //服务分组
-        HystrixCommandGroupKey groupKey = HystrixCommandGroupKey.Factory.asKey("doc");
+        HystrixCommandGroupKey groupKey = HystrixCommandGroupKey.Factory.asKey("demo-doc");
         //命令属性配置
         HystrixCommandProperties.Setter commandProperties = HystrixCommandProperties.Setter()
                 .withCircuitBreakerEnabled(true)
