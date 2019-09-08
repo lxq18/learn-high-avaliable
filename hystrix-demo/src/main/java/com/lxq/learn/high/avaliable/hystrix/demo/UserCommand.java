@@ -18,13 +18,7 @@ public class UserCommand extends HystrixCommand<String> {
                 .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
                         /*****Execution，控制HystrixCommand.run()的执行******/
                         //隔离策略，默认值Thread, 可选THREAD｜SEMAPHORE。
-                        .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD)
-                        //表示设置是否在执行超时时，中断执行,默认值：true
-                        .withExecutionIsolationThreadInterruptOnTimeout(true)
-                        //设置调用者执行的超时时间,默认值：1000
-                        .withExecutionTimeoutInMilliseconds(1000)
-                        //使用SEMAPHORE的隔离策略时，设置最大的并发量，默认值10
-                        .withExecutionIsolationSemaphoreMaxConcurrentRequests(10))
+                        .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD))
                 //指定线程池的划分，相同名称使用同一个线程池
                 .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("userThreadPoolKey"))
                 .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter()
