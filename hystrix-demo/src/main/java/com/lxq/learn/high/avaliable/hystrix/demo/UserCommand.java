@@ -21,10 +21,6 @@ public class UserCommand extends HystrixCommand<String> {
                         .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD))
                 //指定线程池的划分，相同名称使用同一个线程池
                 .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("userThreadPoolKey"))
-                .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter()
-                        /******ThreadPool，线程池配置******/
-                        //设置核心线程池大小，默认10
-                        .withCoreSize(5))
 
         );
         this.userId = userId;
@@ -32,7 +28,7 @@ public class UserCommand extends HystrixCommand<String> {
 
     @Override
     protected String run() throws Exception {
-        Thread.sleep(1000);
+        Thread.sleep(500);
         return "testNickName-" + userId;
     }
 
