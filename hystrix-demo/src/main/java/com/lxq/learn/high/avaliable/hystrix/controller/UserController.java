@@ -13,9 +13,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/user/getNickName")
+    @RequestMapping("/user/getById")
     public String getNickName(String userId) {
-        return userService.getNickName(userId);
+        return userService.getNickName(userId) + "-" + userService.getScore(userId);
     }
 
 }

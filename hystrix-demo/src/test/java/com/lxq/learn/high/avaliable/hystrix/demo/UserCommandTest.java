@@ -1,24 +1,20 @@
 package com.lxq.learn.high.avaliable.hystrix.demo;
 
 import com.lxq.learn.high.avaliable.hystrix.utils.HttpClientUtils;
+import org.junit.Test;
 
 public class UserCommandTest {
 
 
-    public static void main(String[] args) {
-        for (int i = 1; i <= 50; i++) {
-            try {
-                Thread.sleep(20);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            final String userId = String.valueOf(i);
+    @Test
+    public void test() throws InterruptedException {
+        for (int i = 0; i < 20 ; i++) {
             new Thread(() -> {
-                String result = HttpClientUtils.doGet("http://localhost:8080/user/getNickName?userId=" + userId);
+                String result = HttpClientUtils.doGet("http://localhost:8080/user/getById?userId=1");
                 System.out.println(result);
             }).start();
         }
-
+        Thread.sleep(Integer.MAX_VALUE);
     }
 
 
