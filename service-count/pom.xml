@@ -36,10 +36,6 @@
 			<groupId>com.lxq</groupId>
 			<artifactId>learn-common-demo</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>io.reactivex.rxjava2</groupId>
-			<artifactId>rxjava</artifactId>
-		</dependency>
 	</dependencies>
 
 	<build>

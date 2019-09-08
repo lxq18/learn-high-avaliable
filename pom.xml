@@ -45,17 +45,17 @@
     </properties>
 
     <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>4.5.9</version>
-            </dependency>
 
+        <dependencies>
             <dependency>
                 <groupId>com.lxq</groupId>
                 <artifactId>learn-common-demo</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.9</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -69,18 +69,13 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.netflix.hystrix</groupId>
-                <artifactId>hystrix-core</artifactId>
-                <version>${hystrix.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>28.1-jre</version>
             </dependency>
             <dependency>
                 <groupId>com.netflix.hystrix</groupId>
-                <artifactId>hystrix-metrics-event-stream</artifactId>
+                <artifactId>hystrix-core</artifactId>
                 <version>${hystrix.version}</version>
             </dependency>
         </dependencies>
