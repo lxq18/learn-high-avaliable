@@ -30,10 +30,8 @@ public class CountController {
     private static final Map<String, Integer> db = new ConcurrentHashMap<>();
 
     static {
-        db.put("1", 100);
-        db.put("2", 200);
-        db.put("3", 300);
-        db.put("4", 400);
-        db.put("5", 500);
+        for (int i = 1; i < 100; i++) {
+            db.put(String.valueOf(i), i * 100);
+        }
     }
 }

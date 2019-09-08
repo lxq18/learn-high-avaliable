@@ -1,3 +1,9 @@
+.withCoreSize(4)
+.withAllowMaximumSizeToDivergeFromCoreSize(true)
+.withMaximumSize(5)
+
 .withExecutionIsolationThreadInterruptOnFutureCancel(true)
 .withExecutionIsolationThreadInterruptOnTimeout(true)
+计算大小的基本公式: qps*99%延迟+冗余的数量
+
 

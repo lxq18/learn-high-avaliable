@@ -1,4 +1,4 @@
-package com.lxq.learn.high.avaliable.hystrix.fallback;
+package com.lxq.learn.high.avaliable.hystrix.demo;
 
 import com.lxq.learn.high.avaliable.common.dto.CommonParam;
 import com.lxq.learn.high.avaliable.hystrix.HystrixApplication;
@@ -14,14 +14,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * @author: bjlixiaoqiang
- * @create: 2019-09-05 13:11
- */
 @Slf4j
 @Profile(ProfileConstants.S1)
 @RunWith(SpringRunner.class)
@@ -37,7 +32,6 @@ public class FallbackDemoCommandTest {
         int result = new FallbackDemoCommand("1", countUrl, commonParam).execute();
         assertEquals(100, result);
     }
-
 
 
     @Test
@@ -58,16 +52,15 @@ public class FallbackDemoCommandTest {
 
     @Test
     public void threadPoolReject() throws InterruptedException {
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
-        for (int i = 1; i <= 5; i++) {
+        ExecutorService executorService = Executors.newFixedThreadPool(50);
+
+        int taskSize = 7;
+        for (int i = 1; i <= taskSize; i++) {
             final int id = i;
             executorService.execute(() -> {
                 CommonParam commonParam = new CommonParam();
-                if (id <= 2) {
-                    commonParam.setDelayMilli(2000);
-                }
                 int result = new FallbackDemoCommand(String.valueOf(id), countUrl, commonParam).execute();
-                if (id <= 4) {
+                if (id <= taskSize) {
                     assertEquals(id * 100, result);
                     log.info("assert sccuess for id : " + id);
                 }
@@ -75,5 +68,4 @@ public class FallbackDemoCommandTest {
         }
         Thread.sleep(8000);
     }
-
 }
