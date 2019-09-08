@@ -20,6 +20,11 @@ public class DocController {
 
     @RequestMapping("/doc/info")
     public Doc getDoc(String id, CommonParam commonParam) {
-        return docService.getDoc(id, commonParam);
+        try {
+            return docService.getDoc(id, commonParam);
+        } catch (Exception e) {
+            log.error("error, id = " + id, e);
+            return new Doc();
+        }
     }
 }
