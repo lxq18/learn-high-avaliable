@@ -14,6 +14,7 @@
     <name>learn-high-avaliable</name>
 
     <modules>
+        <module>learn-hystrix-dashboard</module>
         <module>hystrix-demo</module>
         <module>sentinel-demo</module>
 		<module>common-demo</module>
