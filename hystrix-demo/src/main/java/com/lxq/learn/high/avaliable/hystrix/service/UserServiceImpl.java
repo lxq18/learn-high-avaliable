@@ -6,16 +6,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-    /**
-     * 用户服务-根据用户id获取用户昵称( hystrix实现)
-     * @param userId
-     * @return
-     */
-    @Override
-    public String getNickName(String userId) {
-        UserCommand userCommand = new UserCommand(userId);
-        return userCommand.execute();
-    }
+//    /**
+//     * 用户服务-根据用户id获取用户昵称( hystrix实现)
+//     * @param userId
+//     * @return
+//     */
+//    @Override
+//    public String getNickName(String userId) {
+//        UserCommand userCommand = new UserCommand(userId);
+//        return userCommand.execute();
+//    }
 
 
     /**
@@ -23,17 +23,17 @@ public class UserServiceImpl implements UserService {
      * @param userId
      * @return
      */
-//    @Override
-//    public String getNickName(String userId) {
-//
-//        try {
-//            Thread.sleep(100);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return "testNickName-" + userId;
-//    }
+    @Override
+    public String getNickName(String userId) {
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return "testNickName-" + userId;
+    }
 
     /**
      * 积分服务-根据用户id获取积分
