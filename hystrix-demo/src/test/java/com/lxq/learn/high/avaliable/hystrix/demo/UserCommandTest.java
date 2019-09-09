@@ -8,9 +8,10 @@ public class UserCommandTest {
 
     @Test
     public void test() throws InterruptedException {
-        for (int i = 0; i < 20 ; i++) {
+        for (int i = 1; i <= 20 ; i++) {
+            final String userId = String.valueOf(i);
             new Thread(() -> {
-                String result = HttpClientUtils.doGet("http://localhost:8080/user/getById?userId=1");
+                String result = HttpClientUtils.doGet("http://localhost:8080/user/getById?userId=" + userId);
                 System.out.println(result);
             }).start();
         }

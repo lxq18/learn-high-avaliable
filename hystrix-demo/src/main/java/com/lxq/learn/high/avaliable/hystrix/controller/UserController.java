@@ -14,7 +14,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/user/getById")
-    public String getNickName(String userId) {
+    public String getById(String userId) {
         return userService.getNickName(userId) + "-" + userService.getScore(userId);
     }
 

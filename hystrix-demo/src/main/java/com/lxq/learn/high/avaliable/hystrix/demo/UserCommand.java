@@ -17,7 +17,9 @@ public class UserCommand extends HystrixCommand<String> {
         super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("userCommandGroupKey"))
                 .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
                         //隔离策略，默认值Thread, 可选THREAD｜SEMAPHORE。
-                        .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD))
+                        .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD)
+                        //设置超时10s，测试用，默认1s
+                        .withExecutionTimeoutInMilliseconds(10000))
                 //指定线程池的划分，相同名称使用同一个线程池
                 .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("userThreadPoolKey"))
 
@@ -27,7 +29,7 @@ public class UserCommand extends HystrixCommand<String> {
 
     @Override
     protected String run() throws Exception {
-        Thread.sleep(500);
+        Thread.sleep(5000);
         return "testNickName-" + userId;
     }
 
